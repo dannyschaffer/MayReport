@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Afrishore BPO — April 2026 Growth Report</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f6fa; color: #1a1a2e; }
+
+  .header { background: linear-gradient(135deg, #0f3460 0%, #16213e 100%); color: white; padding: 48px; }
+  .header-inner { max-width: 960px; margin: 0 auto; }
+  .header-meta { font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; color: #a8c7fa; margin-bottom: 12px; }
+  .header h1 { font-size: 34px; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
+  .header h1 span { color: #4fc3f7; }
+  .header-sub { font-size: 15px; color: #c8d8f0; margin-top: 8px; line-height: 1.5; }
+  .header-date { font-size: 12px; color: #7fa8d4; margin-top: 16px; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+  .section { background: white; border-radius: 12px; padding: 36px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #4fc3f7; margin-bottom: 6px; }
+  .section h2 { font-size: 21px; font-weight: 700; color: #0f3460; margin-bottom: 20px; }
+
+  /* Stat grid */
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .stat-card { background: white; border-radius: 12px; padding: 24px 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); text-align: center; border-top: 4px solid #4fc3f7; }
+  .stat-card.green { border-top-color: #43a870; }
+  .stat-card.amber { border-top-color: #f0a500; }
+  .stat-card.purple { border-top-color: #7c5cbf; }
+  .stat-number { font-size: 38px; font-weight: 800; color: #0f3460; line-height: 1; }
+  .stat-delta { font-size: 14px; font-weight: 700; color: #43a870; margin-top: 4px; }
+  .stat-delta.neutral { color: #6b7280; }
+  .stat-label { font-size: 11px; color: #6b7280; margin-top: 4px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+  .stat-note { font-size: 11px; color: #9ca3af; margin-top: 3px; }
+
+  /* Two col */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  /* Highlight */
+  .highlight { background: linear-gradient(135deg, #e8f4fd, #f0f7ff); border-left: 4px solid #4fc3f7; padding: 18px 22px; border-radius: 0 8px 8px 0; margin-bottom: 18px; }
+  .highlight p { font-size: 14px; color: #1e3a5f; line-height: 1.65; }
+
+  /* Growth rows */
+  .growth-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #f0f2f5; }
+  .growth-row:last-child { border-bottom: none; }
+  .growth-source { font-size: 14px; font-weight: 600; color: #0f3460; }
+  .growth-source span { display: block; font-size: 12px; color: #6b7280; font-weight: 400; margin-top: 2px; }
+  .growth-nums { display: flex; align-items: center; gap: 20px; }
+  .growth-before { font-size: 13px; color: #9ca3af; }
+  .growth-arrow { font-size: 16px; color: #9ca3af; }
+  .growth-after { font-size: 18px; font-weight: 800; color: #0f3460; }
+  .growth-pct { font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+  .pct-up { background: #e8f5e9; color: #2e7d32; }
+  .pct-neutral { background: #f3f4f6; color: #6b7280; }
+  .pct-down { background: #fce4ec; color: #c62828; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #f8fafc; text-align: left; padding: 10px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #6b7280; border-bottom: 2px solid #e5e7eb; }
+  td { padding: 10px 14px; border-bottom: 1px solid #f0f2f5; color: #374151; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .new-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; background: #e8f5e9; color: #2e7d32; margin-left: 6px; letter-spacing: 0.3px; }
+  .pos-good { color: #1565c0; font-weight: 700; }
+  .pos-ok { color: #6b7280; }
+
+  /* GEO */
+  .geo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+  .geo-card { border: 1px solid #e5e7eb; border-radius: 10px; padding: 18px; }
+  .geo-card-label { font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+  .score-bar-wrap { margin-bottom: 0; }
+  .score-bar-label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 5px; }
+  .score-bar { background: #e5e7eb; border-radius: 99px; height: 10px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 99px; }
+  .fill-blue { background: linear-gradient(90deg, #4fc3f7, #0f3460); }
+  .fill-green { background: linear-gradient(90deg, #66bb6a, #2e7d32); }
+  .fill-amber { background: linear-gradient(90deg, #ffca28, #f57f17); }
+  .geo-score { font-size: 28px; font-weight: 800; color: #0f3460; text-align: center; margin-top: 10px; }
+  .geo-score-label { font-size: 11px; color: #9ca3af; text-align: center; }
+
+  /* Standout */
+  .standout-item { display: flex; align-items: flex-start; gap: 14px; padding: 12px 0; border-bottom: 1px solid #f0f2f5; }
+  .standout-item:last-child { border-bottom: none; }
+  .standout-rank { width: 32px; height: 32px; border-radius: 8px; background: #0f3460; color: white; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0; }
+  .standout-rank.gold { background: #f57f17; }
+  .standout-text h4 { font-size: 13px; font-weight: 600; color: #0f3460; margin-bottom: 2px; }
+  .standout-text p { font-size: 12px; color: #6b7280; }
+
+  /* Work done */
+  .work-item { padding: 12px 0; border-bottom: 1px solid #f0f2f5; display: flex; gap: 12px; align-items: flex-start; }
+  .work-item:last-child { border-bottom: none; }
+  .work-check { color: #43a870; font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .work-text { font-size: 13px; color: #374151; line-height: 1.5; }
+  .work-text strong { color: #0f3460; }
+
+  /* Context box */
+  .context-box { background: #fffbeb; border: 1px solid #fcd34d; border-radius: 10px; padding: 18px 22px; }
+  .context-box h4 { font-size: 13px; font-weight: 700; color: #92400e; margin-bottom: 6px; }
+  .context-box p { font-size: 13px; color: #78350f; line-height: 1.6; }
+
+  /* Next steps */
+  .next-item { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #f0f2f5; }
+  .next-item:last-child { border-bottom: none; }
+  .next-num { width: 26px; height: 26px; background: #0f3460; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .next-text h4 { font-size: 13px; font-weight: 700; color: #0f3460; margin-bottom: 2px; }
+  .next-text p { font-size: 12px; color: #6b7280; line-height: 1.5; }
+
+  .footer { text-align: center; padding: 32px; color: #9ca3af; font-size: 12px; }
+
+  @media print {
+    @page { size: A4; margin: 12mm; }
+    html, body { background: white; width: auto; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { font-size: 11px; }
+    .header { padding: 22px 18px; }
+    .header-inner, .container { max-width: none; width: 100%; }
+    .header h1 { font-size: 25px; }
+    .header-sub { font-size: 12px; }
+    .header-meta { font-size: 10px; letter-spacing: 2px; }
+    .header-date { font-size: 10px; }
+    .container { padding: 12px 0 0; }
+    .section { box-shadow: none; border: 1px solid #e5e7eb; border-radius: 6px; padding: 18px; margin-bottom: 12px; break-inside: auto; page-break-inside: auto; }
+    .section h2 { font-size: 18px; margin-bottom: 12px; }
+    .highlight { padding: 12px 14px; margin-bottom: 12px; }
+    .highlight p, .work-text, .next-text p, td { font-size: 11px; line-height: 1.45; }
+    .stat-grid { gap: 10px; margin-bottom: 12px; }
+    .stat-card { box-shadow: none; border: 1px solid #e5e7eb; padding: 14px 10px; break-inside: avoid; page-break-inside: avoid; }
+    .stat-number { font-size: 28px; }
+    .two-col, .geo-grid { gap: 14px; }
+    .geo-card, .work-item, .next-item, .standout-item, tr { break-inside: avoid; page-break-inside: avoid; }
+    table { font-size: 11px; }
+    th, td { padding: 7px 8px; }
+    thead { display: table-header-group; }
+    img { max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    .footer { padding: 12px 0 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-meta">Monthly Growth Report &nbsp;·&nbsp; April 2026</div>
+    <h1>Afrishore BPO <span>— What Moved Last Month</span></h1>
+    <div class="header-sub">AI referral traffic growing. New service pages ranking. Directories driving qualified leads.<br>Here's where real growth occurred in April.</div>
+    <div class="header-date">Prepared by Danny Schaffer &nbsp;·&nbsp; May 2026</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Headline numbers -->
+  <div class="stat-grid">
+    <div class="stat-card green">
+      <div class="stat-number">+53%</div>
+      <div class="stat-delta">57 → 87 sessions</div>
+      <div class="stat-label">ChatGPT Referrals</div>
+      <div class="stat-note">March vs April</div>
+    </div>
+    <div class="stat-card purple">
+      <div class="stat-number">+329%</div>
+      <div class="stat-delta">7 → 30 sessions</div>
+      <div class="stat-label">Directory Traffic</div>
+      <div class="stat-note">OutsourceAccelerator</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="stat-number">4</div>
+      <div class="stat-delta neutral">new pages</div>
+      <div class="stat-label">Now Ranking on Google</div>
+      <div class="stat-note">Didn't exist in March</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">53%</div>
+      <div class="stat-delta neutral">6/10 queries</div>
+      <div class="stat-label">AI Mention Rate</div>
+      <div class="stat-note">ChatGPT, Perplexity, Gemini</div>
+    </div>
+  </div>
+
+  <!-- AI & Referral Traffic Growth -->
+  <div class="section">
+    <div class="section-label">Traffic Sources</div>
+    <h2>Where Growth Actually Happened</h2>
+
+    <div class="highlight">
+      <p>The most commercially relevant traffic isn't coming from Google search. It's coming from AI tools recommending Afrishore, and from directory placements we secured. Both channels grew significantly in April — and the sessions they deliver are highly engaged.</p>
+    </div>
+
+    <div class="growth-row">
+      <div class="growth-source">
+        ChatGPT (chatgpt.com)
+        <span>Visitors referred after asking ChatGPT about BPO in South Africa &nbsp;·&nbsp; 65% engagement rate</span>
+      </div>
+      <div class="growth-nums">
+        <div class="growth-before">57 sessions (Mar)</div>
+        <div class="growth-arrow">→</div>
+        <div class="growth-after">87</div>
+        <div class="growth-pct pct-up">+53%</div>
+      </div>
+    </div>
+
+    <div class="growth-row">
+      <div class="growth-source">
+        OutsourceAccelerator
+        <span>Global BPO directory — result of structured listing work in March</span>
+      </div>
+      <div class="growth-nums">
+        <div class="growth-before">7 sessions (Mar)</div>
+        <div class="growth-arrow">→</div>
+        <div class="growth-after">30</div>
+        <div class="growth-pct pct-up">+329%</div>
+      </div>
+    </div>
+
+    <div class="growth-row">
+      <div class="growth-source">
+        Clutch.co
+        <span>B2B services directory — stable, high-intent traffic</span>
+      </div>
+      <div class="growth-nums">
+        <div class="growth-before">49 sessions (Mar)</div>
+        <div class="growth-arrow">→</div>
+        <div class="growth-after">44</div>
+        <div class="growth-pct pct-neutral">Stable</div>
+      </div>
+    </div>
+
+    <div class="growth-row">
+      <div class="growth-source">
+        Google Organic
+        <span>Mostly branded searches — fluctuates with hiring campaigns &amp; brand activity</span>
+      </div>
+      <div class="growth-nums">
+        <div class="growth-before">1,685 sessions (Mar)</div>
+        <div class="growth-arrow">→</div>
+        <div class="growth-after">1,294</div>
+        <div class="growth-pct pct-down">-23%</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 16px;">
+      <div class="context-box">
+        <h4>Why Google sessions dipped — and why it doesn't concern us</h4>
+        <p>The Google drop is almost entirely in branded searches ("afrishore bpo", "afrishore vacancies") which spike when there are active job postings and dip when there aren't. Non-branded commercial traffic — the kind that converts into B2B enquiries — is not meaningfully down. The work we're doing targets that commercial segment specifically, and it takes 3–6 months to fully register in rankings.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- New pages now ranking -->
+  <div class="section">
+    <div class="section-label">New Content</div>
+    <h2>Pages Now Ranking That Didn't Exist in March</h2>
+
+    <div class="highlight">
+      <p>Four pages we built or rewrote are now appearing in Google search results with meaningful impressions. These pages didn't feature in March's top 20. This is early-stage ranking — positions will improve as Google registers engagement signals over the coming weeks.</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>April Impressions</th>
+          <th>Position</th>
+          <th>What It Targets</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>/south-africa-vs-philippines/ <span class="new-badge">NEW</span></td>
+          <td><strong>733</strong></td>
+          <td class="pos-good">7.2</td>
+          <td>Buyers comparing SA vs PH outsourcing</td>
+        </tr>
+        <tr>
+          <td>/b2b-lead-generation-outsourcing/ <span class="new-badge">NEW</span></td>
+          <td><strong>165</strong></td>
+          <td class="pos-good">6.7</td>
+          <td>Lead generation outsourcing to SA</td>
+        </tr>
+        <tr>
+          <td>/outsourcing-insurance-claims-to-south-africa/ <span class="new-badge">NEW</span></td>
+          <td><strong>183</strong></td>
+          <td class="pos-ok">10.4</td>
+          <td>Insurance BPO buyers</td>
+        </tr>
+        <tr>
+          <td>/igaming-customer-support/ <span class="new-badge">NEW</span></td>
+          <td><strong>117</strong></td>
+          <td class="pos-ok">9.0</td>
+          <td>iGaming operators seeking support</td>
+        </tr>
+        <tr>
+          <td>/debt-collection-outsourcing/</td>
+          <td><strong>375</strong></td>
+          <td class="pos-ok">14.6</td>
+          <td>ARM / debt collection outsourcing</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 16px; font-size: 13px; color: #6b7280; line-height: 1.6;">
+      Compare this to March, where none of these pages featured. The <strong>/business-process-outsourcing/</strong> hub page also moved from position 7.7 → 11.4 as Google recalibrates after the redirect consolidation — this is a normal temporary dip and the page will recover as the new content indexes properly.
+    </div>
+  </div>
+
+  <!-- GEO Visibility -->
+  <div class="section">
+    <div class="section-label">Generative Engine Optimisation (GEO)</div>
+    <h2>How Afrishore Shows Up in AI Tools</h2>
+
+    <div class="highlight">
+      <p>We ran 10 real buyer queries ("best BPO companies in South Africa", "call center outsourcing South Africa", etc.) across ChatGPT, Perplexity, and Gemini. Afrishore was mentioned in 16 out of 30 responses — a 53% overall mention rate — against major global competitors.</p>
+    </div>
+
+    <div class="geo-grid">
+      <div class="geo-card">
+        <div class="geo-card-label">Perplexity</div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-label"><span>Afrishore mentioned</span> <strong>5/10</strong></div>
+          <div class="score-bar"><div class="score-bar-fill fill-blue" style="width: 50%"></div></div>
+        </div>
+        <div class="geo-score">50%</div>
+        <div class="geo-score-label">mention rate</div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-card-label">ChatGPT</div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-label"><span>Afrishore mentioned</span> <strong>5/10</strong></div>
+          <div class="score-bar"><div class="score-bar-fill fill-green" style="width: 50%"></div></div>
+        </div>
+        <div class="geo-score">50%</div>
+        <div class="geo-score-label">mention rate</div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-card-label">Gemini</div>
+        <div class="score-bar-wrap">
+          <div class="score-bar-label"><span>Afrishore mentioned</span> <strong>6/10</strong></div>
+          <div class="score-bar"><div class="score-bar-fill fill-amber" style="width: 60%"></div></div>
+        </div>
+        <div class="geo-score">60%</div>
+        <div class="geo-score-label">mention rate</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 12px; font-size: 13px; font-weight: 700; color: #0f3460;">Standout rankings in AI responses</div>
+
+    <div class="standout-item">
+      <div class="standout-rank gold">#1</div>
+      <div class="standout-text">
+        <h4>"Best BPO companies in South Africa" — Perplexity</h4>
+        <p>Afrishore cited first, ahead of CCI Global, Merchants, and Teleperformance</p>
+      </div>
+    </div>
+    <div class="standout-item">
+      <div class="standout-rank gold">#1</div>
+      <div class="standout-text">
+        <h4>"South Africa BPO for iGaming customer support" — Perplexity</h4>
+        <p>First and only SA BPO mentioned in the iGaming vertical response</p>
+      </div>
+    </div>
+    <div class="standout-item">
+      <div class="standout-rank">#2</div>
+      <div class="standout-text">
+        <h4>"Best call center outsourcing companies in South Africa" — ChatGPT</h4>
+        <p>Cited alongside Merchants with afrishorebpo.com as a source URL</p>
+      </div>
+    </div>
+    <div class="standout-item">
+      <div class="standout-rank">#3</div>
+      <div class="standout-text">
+        <h4>"Outsourcing customer support to South Africa" — Gemini</h4>
+        <p>Mentioned in context of cost advantage and English proficiency</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px; font-size: 13px; color: #6b7280; line-height: 1.6;">
+      This visibility is the direct result of restructuring service page content with FAQ schema, adding afrishorebpo.com to AI-crawlable directories, and publishing the <strong>llms.txt</strong> file that tells AI crawlers what to index. The 87 ChatGPT referral sessions in April are a downstream effect of this work.
+    </div>
+  </div>
+
+  <!-- What we delivered -->
+  <div class="section">
+    <div class="section-label">April Deliverables</div>
+    <h2>What We Did This Month</h2>
+
+    <div class="highlight" style="margin-bottom: 18px;">
+      <p><strong>This section focuses on work completed after the 9 April progress report.</strong> Earlier foundation work has been excluded so the deliverables below reflect current-month output: deeper authority content, third-party article placements, and measurement of early search and AI visibility gains.</p>
+    </div>
+
+    <div style="font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Authority Articles Completed This Month</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px;">
+      <div style="border:1px solid #e5e7eb;border-radius:8px;padding:12px 14px;">
+        <div style="font-size:12px;font-weight:700;color:#0f3460;margin-bottom:4px;">The True Cost of Offshore Customer Service</div>
+        <div style="font-size:11px;color:#6b7280;line-height:1.55;">Completed Apr 17 · Fully loaded pricing guide covering hidden offshore costs, shift premiums, management overhead, and buyer due diligence.</div>
+      </div>
+      <div style="border:1px solid #e5e7eb;border-radius:8px;padding:12px 14px;">
+        <div style="font-size:12px;font-weight:700;color:#0f3460;margin-bottom:4px;">AML BPO: Anti-Money Laundering Compliance</div>
+        <div style="font-size:11px;color:#6b7280;line-height:1.55;">Completed Apr 22 · Compliance-focused guide for regulated businesses outsourcing transaction monitoring, KYC, sanctions screening, and SAR support.</div>
+      </div>
+      <div style="border:1px solid #e5e7eb;border-radius:8px;padding:12px 14px;">
+        <div style="font-size:12px;font-weight:700;color:#0f3460;margin-bottom:4px;">BPO in South Africa: Complete Buyer Guide</div>
+        <div style="font-size:11px;color:#6b7280;line-height:1.55;">Completed Apr 22 · Pillar guide for US, UK, and Australian buyers evaluating South Africa as an outsourcing destination.</div>
+      </div>
+      <div style="border:1px solid #e5e7eb;border-radius:8px;padding:12px 14px;">
+        <div style="font-size:12px;font-weight:700;color:#0f3460;margin-bottom:4px;">Banking and Financial Services BPO</div>
+        <div style="font-size:11px;color:#6b7280;line-height:1.55;">Completed Apr 22 · Vertical guide strengthening Afrishore's financial-services authority and supporting AML, ARM, and banking outsourcing queries.</div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div style="font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Authority &amp; Distribution</div>
+        <div class="work-item">
+          <div class="work-check">✓</div>
+          <div class="work-text"><strong>Outsource Accelerator articles</strong> — four third-party placements now live: FSO launch, AI Customer Service Paradox, Hidden Cost of Cheap Offshore BPO, and the South Africa vs Philippines outsourcing debate</div>
+        </div>
+        <div class="work-item">
+          <div class="work-check">✓</div>
+          <div class="work-text"><strong>Anton's newsletter launched</strong> — Human in the Loop CX reached 765 subscribers in week one, creating a new operator-led authority channel for CX and AI-service commentary</div>
+        </div>
+        <div class="work-item">
+          <div class="work-check">✓</div>
+          <div class="work-text"><strong>BPO Statistics 2026 prepared</strong> — data-led authority asset is ready for publication and will become the source page for OA recap, press release, and media outreach</div>
+        </div>
+        <div class="work-item">
+          <div class="work-check">✓</div>
+          <div class="work-text"><strong>Paid CX media shortlist built</strong> — Newsfile, The CS Cafe, CustomerThink, and Doing CX Right researched for distribution fit, pricing, and audience relevance</div>
+        </div>
+        <div class="work-item">
+          <div class="work-check">✓</div>
+          <div class="work-text"><strong>Authority article sequencing tightened</strong> — next content now prioritises statistics, buyer-risk, and commercial-intent topics instead of duplicating pages already live</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Measurement &amp; Search Progress</div>
+        <div class="work-item">
+          <div class="work-check">✓</div>
+          <div class="work-text"><strong>AI visibility benchmark completed</strong> — 10 buyer queries tested across ChatGPT, Perplexity, and Gemini; Afrishore appeared in 16 of 30 responses</div>
+        </div>
+        <div class="work-item">
+          <div class="work-check">✓</div>
+          <div class="work-text"><strong>Bing indexing gap identified</strong> — Perplexity visibility issue traced to Bing index absence, giving the team a clear technical fix for AI citation growth</div>
+        </div>
+        <div class="work-item">
+          <div class="work-check">✓</div>
+          <div class="work-text"><strong>New ranking movement measured</strong> — South Africa vs Philippines, Lead Generation, Insurance Claims, iGaming Support, and Debt Collection pages are now visible in Google with early commercial-query impressions</div>
+        </div>
+        <div class="work-item">
+          <div class="work-check">✓</div>
+          <div class="work-text"><strong>Schema and index checks completed</strong> — Banking, AML BPO, BPO in South Africa, and other high-priority pages checked for JSON-LD, sitemap inclusion, and next internal-link actions</div>
+        </div>
+        <div class="work-item">
+          <div class="work-check">✓</div>
+          <div class="work-text"><strong>Commercial keyword actions refreshed</strong> — ranking table updated to separate completed work from monitor/linking actions so the next month focuses on ranking lifts, not duplicate rewrites</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LinkedIn Outreach -->
+  <div class="section">
+    <div class="section-label">Outbound — LinkedIn</div>
+    <h2>A More Human Outreach Approach</h2>
+
+    <div class="highlight">
+      <p>We've moved away from scripted pitch sequences to a genuinely conversational approach: openers that ask specific questions about what the prospect is actually dealing with in their operations. No pitch in the first message — or the second. The prospect opens up, the pain surfaces naturally, and Afrishore enters only when there's an obvious fit. Two recent examples:</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px;">
+      <div>
+        <div style="font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Norma Davis — Healthcare Admin, US</div>
+        <div style="background: #e8f5e9; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #2e7d32; font-weight: 600; margin-bottom: 12px;">"I am interested in Afrishore" → email address provided</div>
+        <img src="../linkedincampaignref/norma1.png" style="width: 100%; border-radius: 8px; border: 1px solid #e5e7eb; display: block; margin-bottom: 8px;">
+        <img src="../linkedincampaignref/norma2.png" style="width: 100%; border-radius: 8px; border: 1px solid #e5e7eb; display: block;">
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Richard Norton — Service Director, Avensys UK</div>
+        <div style="background: #e8f5e9; border-radius: 6px; padding: 8px 12px; font-size: 12px; color: #2e7d32; font-weight: 600; margin-bottom: 12px;">Email address provided → call with Anton confirmed</div>
+        <img src="../linkedincampaignref/rich1.png" style="width: 100%; border-radius: 8px; border: 1px solid #e5e7eb; display: block; margin-bottom: 8px;">
+        <img src="../linkedincampaignref/rich2.png" style="width: 100%; border-radius: 8px; border: 1px solid #e5e7eb; display: block; margin-bottom: 8px;">
+        <img src="../linkedincampaignref/rich3.png" style="width: 100%; border-radius: 8px; border: 1px solid #e5e7eb; display: block;">
+      </div>
+    </div>
+
+    <div style="margin-top: 20px; font-size: 13px; color: #374151; line-height: 1.65;">
+      The shift is deliberate: the old approach opened with what Afrishore does; the new approach opens with what the prospect is actually dealing with. Each opener references specifics from their industry — patient access workflows, HTM compliance documentation, backend capacity — that signal genuine familiarity rather than a mass sequence. When the right pain is there, the prospect identifies themselves. Both conversations above moved to email within a week.
+    </div>
+  </div>
+
+  <!-- Anton's Newsletter -->
+  <div class="section">
+    <div class="section-label">Thought Leadership</div>
+    <h2>Anton's Newsletter: Human in the Loop CX</h2>
+
+    <div style="display: grid; grid-template-columns: 220px 1fr; gap: 32px; align-items: start;">
+      <div>
+        <img src="../Screenshot 2026-05-06 at 10.56.48.png" style="width: 100%; border-radius: 8px; border: 1px solid #e5e7eb;">
+      </div>
+      <div>
+        <div class="highlight" style="margin-bottom: 16px;">
+          <p><strong>765 subscribers in the first week.</strong> Anton launched "Human in the Loop CX" — a weekly operator note on human-in-the-loop CX, AI customer service, contact center automation, and offshore CX operations. First issue published this week.</p>
+        </div>
+        <div style="font-size: 13px; color: #374151; line-height: 1.65; margin-bottom: 14px;">
+          This isn't a marketing newsletter — it's written from an operator's perspective for operators: CS Directors, Contact Center GMs, and CX leaders dealing with the same AI-automation tradeoffs Afrishore's clients face. That positioning makes it a credible authority channel rather than a branded content play. As the audience grows, it becomes a direct line to the exact buyer profile Afrishore targets.
+        </div>
+        <div style="font-size: 13px; color: #374151; line-height: 1.65;">
+          Planned episodes cover the full arc from AI triage failure modes to offshore escalation design and regulated-industry compliance. <a href="https://docs.google.com/document/d/1m1x9RODIKzslWB2VGPumTmLXvdI7Wlzex7-ai4FAKrM/edit?usp=sharing" style="color: #0f3460; font-weight: 600; text-decoration: none;">View the full episode plan →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- What's next -->
+  <div class="section">
+    <div class="section-label">May 2026 — Action Plan</div>
+    <h2>What We're Doing This Month</h2>
+
+    <div style="font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; margin-top: 4px;">Authority &amp; Backlink Building</div>
+
+    <div class="highlight" style="margin-bottom: 18px;">
+      <p><strong>Where we stand today:</strong> Afrishore is ranked <strong>#2</strong> on OutsourceAccelerator's top call centres in South Africa list and <strong>#3</strong> on their top BPO companies list, with four OA placements live: FSO launch news, AI Customer Service Paradox, Hidden Cost of Cheap Offshore BPO, and the Philippines vs South Africa outsourcing debate. Afrishore also holds a 5.0 rating across 3 reviews on Clutch, with live profiles on GoodFirms and Prospeo. These are the exact sources ChatGPT, Perplexity, and Gemini pull from when answering buyer queries.</p>
+    </div>
+
+    <div class="next-item">
+      <div class="next-num">1</div>
+      <div class="next-text">
+        <h4>Upload BPO Statistics 2026 — the outreach blocker</h4>
+        <p>The article is written (50+ verified statistics across 6 sections, FAQ schema, full JSON-LD). It just needs Emihle to publish it at <strong>/bpo-statistics/</strong> and request indexing in GSC. This is the blocker for everything else in this section — all outreach templates reference it as the pitch asset. Once live, it will also get Afrishore cited by AI tools searching for BPO market data.</p>
+      </div>
+    </div>
+    <div class="next-item">
+      <div class="next-num">2</div>
+      <div class="next-text">
+        <h4>AI citation monitoring live — 15 buyer-intent prompts running</h4>
+        <p style="margin-bottom: 10px;">The 15 buyer prompts are built and logged in a tracking CSV (tested monthly across ChatGPT, Perplexity, and Gemini). Ongoing AI citation surfaces are OA, Clutch, and GoodFirms — all active and enriched.</p>
+        <p style="margin-bottom: 10px;"><strong>Key gap identified this month: Bing indexing.</strong> Perplexity runs its own index separately from Google — it crawls with PerplexityBot and also uses Bing. Afrishore is currently not indexed in Bing, which is why well-ranked content goes uncited in Perplexity results even when Google rankings are healthy. Emihle has a 15-minute task to submit the sitemap to Bing Webmaster Tools — this is the single fastest unlock for AI citation across the entire site.</p>
+        <p>Success target: Afrishore in the top-3 AI recommendations for the top 5 buyer prompts within 6 months, with at least two third-party citations reinforcing each answer.</p>
+      </div>
+    </div>
+    <div style="font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; margin-top: 20px;">Paid Distribution — Pricing &amp; Channel Detail</div>
+
+    <div class="next-item">
+      <div class="next-num">3</div>
+      <div class="next-text">
+        <h4>Paid placement in CX media — outreach in progress</h4>
+        <p style="margin-bottom:14px;">We audited 12 CX newsletters and media properties against two criteria: verified audience data and pricing within budget. Three properties made the cut, with Newsfile queued separately as the BPO Statistics syndication play.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+          <div style="border:1px solid #e2e8f0;border-radius:8px;padding:16px;grid-column:1/-1;">
+            <div style="font-size:13px;font-weight:700;color:#0f3460;margin-bottom:4px;">Newsfile Press Release — BPO Statistics 2026 <span style="background:#fef3c7;color:#92400e;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px;">Queued — post-publish</span></div>
+            <div style="font-size:12px;color:#4b5563;line-height:1.7;">
+              <strong>Cost:</strong> approx. CAD $300–500 per release (newsfilecorp.com) · syndicates to Chronicle Journal, ITBusinessNet, MarketMinute, and 50+ business wires<br>
+              <strong>Angle:</strong> "Afrishore publishes 2026 BPO statistics resource for UK and US outsourcing buyers"<br>
+              <strong>Sequence:</strong> (1) publish + index BPO Statistics page → (2) submit Outsource Accelerator article linking to the page → (3) send Newsfile release<br>
+              <strong>Why:</strong> Hugo earned Chronicle Journal and ITBusinessNet links via this exact route. One release earns 4–8 syndicated links from credible business news domains at a one-time cost.
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;">
+          <div style="border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
+            <div style="font-size:13px;font-weight:700;color:#0f3460;margin-bottom:4px;">The CS Cafe <span style="background:#fef3c7;color:#92400e;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px;">Awaiting reply</span></div>
+            <div style="font-size:12px;color:#4b5563;line-height:1.7;">
+              4,300 subscribers · 45% open rate<br>
+              CS Directors, VPs, SaaS leaders<br>
+              <strong>$299/issue</strong> — verified via Passionfroot<br>
+              Inbox placement; data is the pitch asset once BPO Statistics 2026 is live
+            </div>
+          </div>
+          <div style="border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
+            <div style="font-size:13px;font-weight:700;color:#0f3460;margin-bottom:4px;">CustomerThink <span style="background:#fef3c7;color:#92400e;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px;">Pricing pending</span></div>
+            <div style="font-size:12px;color:#4b5563;line-height:1.7;">
+              2M visitors/year · 30,000 newsletter subscribers<br>
+              CEO/GM 27% · Contact Center editorial focus<br>
+              Sponsored Interview = published article on customerthink.com<br>
+              Flat fee quoted on request — reply awaited
+            </div>
+          </div>
+          <div style="border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
+            <div style="font-size:13px;font-weight:700;color:#0f3460;margin-bottom:4px;">Doing CX Right — Stacy Sherman <span style="background:#fef3c7;color:#92400e;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:4px;">Pricing requested</span></div>
+            <div style="font-size:12px;color:#4b5563;line-height:1.7;">
+              Podcast + newsletter + LinkedIn · CX Directors, Contact Center GMs, CS operators<br>
+              Options: podcast guest (Anton), sponsored research highlight, newsletter feature<br>
+              Exact pricing awaited from team — budget fit TBC
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; margin-top: 20px;">Keyword Positions &amp; Content Pipeline</div>
+
+    <div class="next-item">
+      <div class="next-num">4</div>
+      <div class="next-text">
+        <h4>P1/P2 keyword ranking — where we stand and what moves the needle</h4>
+        <p style="margin-bottom: 14px;">Non-branded commercial queries, Jan–May 2026 average (GSC). These drive B2B leads. Branded terms account for ~85% of all clicks but need no intervention.</p>
+        <table style="font-size: 12px;">
+          <thead>
+            <tr>
+              <th>Priority</th>
+              <th>Query</th>
+              <th style="text-align:right;">Pos</th>
+              <th style="text-align:right;">Impr</th>
+              <th>Status / Next action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:#c62828;font-weight:700;">P1</td>
+              <td>bpo</td>
+              <td class="pos-good" style="text-align:right;">6.3</td>
+              <td style="text-align:right;">2,229</td>
+              <td style="color:#2e7d32;font-weight:600;">✓ Hub live + BPO in SA support article live; remaining: BPO Stats + link pass</td>
+            </tr>
+            <tr>
+              <td style="color:#c62828;font-weight:700;">P1</td>
+              <td>bpo call center</td>
+              <td class="pos-good" style="text-align:right;">6.8</td>
+              <td style="text-align:right;">1,151</td>
+              <td style="color:#2e7d32;font-weight:600;">✓ Page live + in sitemap; monitor ranking movement</td>
+            </tr>
+            <tr>
+              <td style="color:#c62828;font-weight:700;">P1</td>
+              <td>bpo companies in south africa</td>
+              <td class="pos-ok" style="text-align:right;">16.1</td>
+              <td style="text-align:right;">833</td>
+              <td style="color:#2e7d32;font-weight:600;">✓ Final live + old /top-bpo-performance/ 301 done; add BPO-in-SA link</td>
+            </tr>
+            <tr>
+              <td style="color:#c62828;font-weight:700;">P1</td>
+              <td>aml igaming compliance</td>
+              <td class="pos-ok" style="text-align:right;">27.3</td>
+              <td style="text-align:right;">4,650</td>
+              <td style="color:#2e7d32;font-weight:600;">✓ Live + JSON-LD present; add AML/BPO links if needed</td>
+            </tr>
+            <tr>
+              <td style="color:#c62828;font-weight:700;">P1</td>
+              <td>bpo anti money laundering</td>
+              <td class="pos-good" style="text-align:right;">5.2</td>
+              <td style="text-align:right;">618</td>
+              <td style="color:#2e7d32;font-weight:600;">✓ Live + JSON-LD present + in sitemap</td>
+            </tr>
+            <tr>
+              <td style="color:#c62828;font-weight:700;">P1</td>
+              <td>travel bpo services</td>
+              <td class="pos-ok" style="text-align:right;">18.8</td>
+              <td style="text-align:right;">1,636</td>
+              <td style="color:#2e7d32;font-weight:600;">✓ /travel-bpo-services/ now 301s to Travel Call Centre guide</td>
+            </tr>
+            <tr>
+              <td style="color:#c62828;font-weight:700;">P1 🔴</td>
+              <td>accounts receivable outsourcing</td>
+              <td style="text-align:right;color:#c62828;font-weight:700;">41.8</td>
+              <td style="text-align:right;">1,148</td>
+              <td style="color:#92400e;font-weight:600;">Reworked page live + schema present; monitor post-update GSC</td>
+            </tr>
+            <tr>
+              <td style="color:#0f3460;font-weight:700;">P2</td>
+              <td>debt collection outsourcing</td>
+              <td class="pos-ok" style="text-align:right;">12.5</td>
+              <td style="text-align:right;">1,533</td>
+              <td style="color:#2e7d32;font-weight:600;">✓ Live + old debt URLs 301 to target; monitor/add ARM links</td>
+            </tr>
+            <tr>
+              <td style="color:#0f3460;font-weight:700;">P2</td>
+              <td>insurance claims outsourcing</td>
+              <td class="pos-ok" style="text-align:right;">10.5</td>
+              <td style="text-align:right;">1,034</td>
+              <td style="color:#2e7d32;font-weight:600;">✓ Live + JSON-LD present; monitor/add links</td>
+            </tr>
+            <tr>
+              <td style="color:#0f3460;font-weight:700;">P2</td>
+              <td>bpo south africa</td>
+              <td class="pos-ok" style="text-align:right;">10.0</td>
+              <td style="text-align:right;">743</td>
+              <td style="color:#2e7d32;font-weight:600;">✓ BPO in South Africa guide live + JSON-LD + sitemap</td>
+            </tr>
+            <tr>
+              <td style="color:#0f3460;font-weight:700;">P2</td>
+              <td>banking outsourcing services</td>
+              <td class="pos-good" style="text-align:right;">8.5</td>
+              <td style="text-align:right;">79</td>
+              <td style="color:#2e7d32;font-weight:600;">✓ Banking guide live + JSON-LD + sitemap</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="next-item">
+      <div class="next-num">5</div>
+      <div class="next-text">
+        <h4>Content plan — completed assets and next priorities</h4>
+        <p style="margin-bottom: 14px;">The plan now separates work already completed from assets ready to publish and the next commercial opportunities. This keeps the team focused on ranking movement, authority building, and buyer-intent coverage without duplicating existing content.</p>
+
+        <div style="margin-bottom: 16px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #2e7d32; margin-bottom: 8px;">Completed or already live</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">BPO Companies in SA</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Call Centre Outsourcing SA</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Call Centre Cost Guide</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Debt Collection Outsourcing</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Insurance Claims Outsourcing</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">SA vs Philippines BPO</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">BPO in South Africa 2026</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Banking &amp; Financial Services BPO</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">AML BPO: Anti-Money Laundering</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">AML iGaming Compliance</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Travel Call Centre</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Offshore Call Center Attrition Rates</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">True Cost of Offshore Customer Service</span>
+            <span style="background:#e8f5e9;color:#2e7d32;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">HIPAA Compliant BPO</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #92400e; margin-bottom: 8px;">Ready for publication or final setup</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <span style="background:#fffbeb;color:#92400e;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">BPO Statistics 2026</span>
+            <span style="background:#fffbeb;color:#92400e;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Why US Companies Outsource to SA</span>
+            <span style="background:#fffbeb;color:#92400e;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">UK Businesses Outsourcing Guide</span>
+            <span style="background:#fffbeb;color:#92400e;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Outsource Accelerator BPO Statistics Recap</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #0f3460; margin-bottom: 8px;">Third-party authority coverage live</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <span style="background:#e8f4fd;color:#0f3460;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">FSO Unit Launch News</span>
+            <span style="background:#e8f4fd;color:#0f3460;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">AI Customer Service Paradox</span>
+            <span style="background:#e8f4fd;color:#0f3460;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Hidden Cost of Cheap Offshore BPO</span>
+            <span style="background:#e8f4fd;color:#0f3460;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Philippines vs South Africa Debate</span>
+          </div>
+          <p style="font-size: 11px; color: #6b7280; line-height: 1.5; margin-top: 8px;">These placements strengthen third-party credibility around Afrishore's position in AI-assisted customer service, offshore cost transparency, and South Africa vs Philippines outsourcing decisions.</p>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #6b7280; margin-bottom: 8px;">Authority-building sequence</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Publish + index BPO Statistics</span>
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Outsource Accelerator Stats Recap</span>
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Newsfile Stats Release</span>
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Targeted Media Outreach</span>
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">South Africa BPO Statistics 2026</span>
+          </div>
+          <p style="font-size: 11px; color: #6b7280; line-height: 1.5; margin-top: 8px;">The BPO Statistics page is the lead asset for media outreach and third-party citations. Once live and indexed, it gives the team a credible data source to pitch to industry publications and business-news outlets.</p>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #6b7280; margin-bottom: 8px;">Buyer-trust topics to cover next</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Night Shift Differential Cost</span>
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Offshore BPO Bait-and-Switch</span>
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Verify BPO Provider References</span>
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">CMMC Offshore CS</span>
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Offshore Freelancer Misclassification</span>
+          </div>
+          <p style="font-size: 11px; color: #6b7280; line-height: 1.5; margin-top: 8px;">These topics answer high-friction buyer questions around hidden cost, vendor risk, compliance, and offshore delivery quality. They support trust before sales conversations start.</p>
+        </div>
+
+        <div>
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #6b7280; margin-bottom: 8px;">Commercial content opportunities</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">BPO Industry SA 2026</span>
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Lead Generation Outsourcing Guide</span>
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Customer Service BPO Companies</span>
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">iGaming Provider Selection Guide</span>
+            <span style="background:#f3f4f6;color:#374151;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;">Fintech / eCom / SaaS / IT Spokes</span>
+          </div>
+          <p style="font-size: 11px; color: #6b7280; line-height: 1.5; margin-top: 8px;">These articles and refreshes support non-branded commercial rankings and increase the number of buyer-intent questions Afrishore can answer in Google and AI tools.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Afrishore BPO &nbsp;·&nbsp; SEO &amp; GEO Monthly Report &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Prepared by Danny Schaffer
+</div>
+
+</body>
+</html>
